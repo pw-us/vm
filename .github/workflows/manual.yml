@@ -1,4 +1,4 @@
-name: CI2016
+name: CI
 
 on: workflow_dispatch
 
@@ -6,7 +6,6 @@ jobs:
   build:
 
     runs-on: windows-2022
-    timeout-minutes: 9999
     steps:
     - name: Download Ngrok
       run: Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
@@ -26,10 +25,6 @@ jobs:
       run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "Techgay11" -Force)
     - name: Create Tunnel
       run: Start-Process Powershell -ArgumentList '-Noexit -Command ".\ngrok\ngrok.exe tcp 3389"'
-    - name: Download wsl script
-      run: Invoke-WebRequest https://raw.githubusercontent.com/vh-official/timeout/main/wsl.ps1 -OutFile wsl.ps1
-    - name: Install WSL
-      run: ./wsl.ps1
     - name: Download Timeout Script
       run: Invoke-WebRequest https://raw.githubusercontent.com/vh-official/timeout/main/timeout.ps1 -OutFile timeout.ps1
     - name: Keep Alive
